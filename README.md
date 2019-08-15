@@ -1,7 +1,7 @@
 # Visible Planets API
 
 ## Get realtime planetary positions in your sky.
-A free JSON API powered by [Don Cross' JS Astronomy Engine](http://cosinekitty.com/astronomy.js]).
+A free JSON API powered by [Don Cross' JS Astronomy Engine](http://cosinekitty.com/astronomy.js).
 
 ## Usage
 
