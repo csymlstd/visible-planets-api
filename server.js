@@ -6,8 +6,10 @@ const port = process.env.PORT || 7777
 app.use(cors({ origin: '*' }))
 
 const v1 = require('./v1')
+const v2 = require('./v2')
 
-app.get('/', v1)
+app.get('/', v2)
 app.get('/v1', v1)
+app.get('/v2', v2)
 
 app.listen(port, () => console.log(`[server] up :${port}`))
