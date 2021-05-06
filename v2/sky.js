@@ -1,5 +1,6 @@
 
-const { Astronomy, Angle, GeographicCoordinates } = require('./astronomy')
+const { Astronomy, Angle, GeographicCoordinates } = require('../astronomy')
+const DateTime = require('./utils/datetime')
 
 const NakedEyeObjects = [
     'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn'
@@ -11,8 +12,8 @@ class Sky {
     
     constructor(opts = {}) {
         const defaults = {
-            elevation: null,
-            time: new Date()
+            elevation: 0,
+            time: DateTime.create().utc(false).toDate()
         }
 
         let options = Object.assign({}, defaults, opts)
@@ -39,7 +40,7 @@ class Sky {
             }
             
             if(options.showCoords) {
-                item.rightAscenson = rac
+                item.rightAscension = rac
                 item.declination = dec
             }
             
@@ -60,9 +61,9 @@ class Sky {
             return null
         }
         
-        const hours   = dms.degrees.toFixed()
-        const minutes = dms.minutes.toFixed()
-        const seconds = dms.seconds.toFixed(1)
+        const hours   = Number(dms.degrees)
+        const minutes = Number(dms.minutes)
+        const seconds = Number(dms.seconds)
 
         return {
             hours, minutes, seconds
@@ -72,14 +73,14 @@ class Sky {
     getDeclination(dec) {
         const dms = Angle.DMS(dec)
 
-        const hours   = dms.degrees.toFixed(1)
-        const minutes = dms.minutes.toFixed(1)
-        const seconds = dms.seconds.toFixed(1)
+        const degrees   = Number(dms.degrees)
+        const arcminutes = Number(dms.minutes)
+        const arcseconds = Number(dms.seconds)
 
         return {
-            hours: (dms.negative ? hours * -1 : hours).toString(),
-            minutes,
-            seconds
+            degrees: (dms.negative ? degrees * -1 : degrees),
+            arcminutes,
+            arcseconds
         }
     }
 
