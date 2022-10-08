@@ -9,7 +9,7 @@ const NakedEyeObjects = [
 const Bodies = Astronomy.Body.filter(body => ['planet', undefined].includes(body.BodyType))
 
 class Sky {
-    
+
     constructor(opts = {}) {
         const defaults = {
             elevation: 0,
@@ -38,19 +38,21 @@ class Sky {
                 const hc = body.HorizontalCoordinates(this.time, this.location)
                 item.aboveHorizon = hc.altitude > 0
             }
-            
+
             if(options.showCoords) {
                 item.rightAscension = rac
                 item.declination = dec
             }
-            
+
             item.nakedEyeObject = NakedEyeObjects.indexOf(body.name) > 0
-            
+
             delete item.type
             output.push(item)
         })
 
-        output = output.filter(item => item.aboveHorizon === true)
+        if(options.aboveHorizon) {
+            output = output.filter(item => item.aboveHorizon === true)
+        }
 
         return output
     }
@@ -60,7 +62,7 @@ class Sky {
         if (dms.negative) {
             return null
         }
-        
+
         const hours   = Number(dms.degrees)
         const minutes = Number(dms.minutes)
         const seconds = Number(dms.seconds)

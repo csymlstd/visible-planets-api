@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    command: 'npm start'
+    ports:
+      - 7777:7777
+    environment:
+      - PORT=7777
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+
+networks:
+  default:
+    external:
+      name: apps_default
