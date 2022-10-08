@@ -7,12 +7,12 @@ A free JSON API powered by [Don Cross' JS Astronomy Engine](http://cosinekitty.c
 
 Get a list of planets (and Moon) above the horizon.
 ```
-GET https://visible-planets-api.herokuapp.com/v2?latitude=32&longitude=-98
+GET https://visible-planets-api.herokuapp.com/v3?latitude=32&longitude=-98
 ```
 
 Get a list of planets (and Moon) with their declination and right ascension coordinates.
 ```
-GET https://visible-planets-api.herokuapp.com/v2?latitude=32&longitude=-98&showCoords=true
+GET https://visible-planets-api.herokuapp.com/v3?latitude=32&longitude=-98&showCoords=true
 ```
 
 ## Query Parameters
