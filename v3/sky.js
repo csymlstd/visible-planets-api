@@ -1,10 +1,15 @@
-const engine = require('astronomy-engine/package.json')
-const { AstroTime, Body, Angle, Observer, Equator, Horizon, Illumination, MoonPhase, Constellation, Elongation } = require('astronomy-engine')
-const DateTime = require('./utils/datetime')
+const { AstroTime, Body, Angle, Observer, Equator, Horizon, Illumination, MoonPhase, Constellation, Elongation } = require('astronomy-engine');
+const DateTime = require('./utils/datetime');
+const config = require('../config');
 
 const NakedEyeObjects = [
-    'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn'
-]
+    Body.Sun, Body.Moon, Body.Mercury, Body.Venus, Body.Earth, Body.Mars, Body.Jupiter, Body.Saturn,
+];
+
+const IncludedBodies = [
+    Body.Sun, Body.Moon, Body.Mercury, Body.Venus, Body.Mars,
+    Body.Jupiter, Body.Saturn, Body.Uranus, Body.Neptune, Body.Pluto
+];
 
 class Sky {
 
@@ -15,9 +20,9 @@ class Sky {
         }
 
         let options = Object.assign({}, defaults, opts)
-        this.engine_version = engine.version
-        this.location = new Observer(options.latitude, options.longitude, options.elevation)
-        this.time = new AstroTime(options.time)
+        this.engine_version = config.engineVersion;
+        this.location = new Observer(options.latitude, options.longitude, options.elevation);
+        this.time = new AstroTime(options.time);
     }
 
     getDMS(x) {
@@ -56,7 +61,7 @@ class Sky {
 
     get(options = {}) {
         let output = []
-        Object.keys(Body).filter(key => ![Body.Earth, Body.SSB, Body.EMB].includes(key)).forEach(body => {
+        Object.keys(Body).filter(key => IncludedBodies.includes(key)).forEach(body => {
             let item = {
                 name: body,
             }

@@ -1,26 +1,27 @@
-const Sky = require('./sky')
-const DateTime = require('./utils/datetime')
+const Sky = require('./sky');
+const DateTime = require('./utils/datetime');
+const config = require('../config');
 
 module.exports = (req, res, next) => {
-    const latitude = Number(req.query.latitude) || 32.78
-    const longitude = Number(req.query.longitude) || -96.84
-    const elevation = Number(req.query.elevation) || 0
-    const time = DateTime.root.utc(req.query.time)
-    const aboveHorizon = req.query.aboveHorizon === 'false' ? false : true
-    const showCoords = Boolean(req.query.showCoords)
+    const latitude = Number(req.query.latitude) || config.defaults.latitude;
+    const longitude = Number(req.query.longitude) || config.defaults.longitude;
+    const elevation = Number(req.query.elevation) || config.defaults.elevation;
+    const time = DateTime.root.utc(req.query.time);
+    const aboveHorizon = req.query.aboveHorizon === 'false' ? false : true;
+    const showCoords = Boolean(req.query.showCoords);
 
     const sky = new Sky({
         time: time.toDate(),
         latitude,
         longitude,
         elevation,
-    })
+    });
 
-    const data = sky.get({ showCoords, aboveHorizon })
+    const data = sky.get({ showCoords, aboveHorizon });
     const links = {
-        self: req.protocol + '://' + req.get('host') + req.originalUrl,
+        self: 'https://' + req.get('host') + req.originalUrl,
         engine: `https://www.npmjs.com/package/astronomy-engine`,
-    }
+    };
 
     return res.json({
         meta: {
@@ -33,5 +34,5 @@ module.exports = (req, res, next) => {
         },
         data,
         links
-    })
+    });
 }
