@@ -1,6 +1,6 @@
 {
-  "name": "sky-api",
-  "version": "3.0.0",
+  "name": "visible-planets-api",
+  "version": "3.1.0",
   "description": "",
   "main": "server.js",
   "scripts": {

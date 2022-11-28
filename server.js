@@ -4,6 +4,7 @@ const app = express()
 const port = process.env.PORT || 7777
 
 app.use(cors({ origin: '*' }))
+app.set('trust proxy');
 
 const v1 = require('./v1')
 const v2 = require('./v2')
